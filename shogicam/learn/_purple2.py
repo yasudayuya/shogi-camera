@@ -9,8 +9,8 @@ from shogicam.constant import *
 import shogicam.data
 
 def learn(data_dir, verbose=False, test_size=0.05):
-    x_train, y_train = load_traindata_nosplit(data_dir, test_size)
-    x_test, y_test = shogicam.data.load_validation_board_data(data_dir + '/board')
+    x_train, y_train = load_traindata_nosplit(data_dir)
+    x_test, y_test = shogicam.data.load_validation_cells(data_dir + '/board')
     model = gen_model()
     if verbose:
         model.summary()

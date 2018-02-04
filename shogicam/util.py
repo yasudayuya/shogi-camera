@@ -1,3 +1,4 @@
+# coding:utf-8
 import cv2
 import numpy as np
 from shogicam.constant import *
@@ -16,9 +17,9 @@ def save(img, path):
 
 def normalize_img(img, h, w):
     size = img.shape[:2]
-    f = min(h / size[0], w / size[1])
+    f = min(float(h) / size[0], float(w) / size[1])
     resized = cv2.resize(img, (int(size[1] * f), int(size[0] * f)), interpolation=cv2.INTER_AREA)
-    
+
     gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
     blank = np.full((h, w), np.uint8(255), dtype=np.uint8)
     hstart = int((h - gray.shape[0]) / 2)
@@ -30,20 +31,29 @@ def label_name(idx):
     if len(LABELS) > idx:
         return " " + LABELS_JA[idx]
     elif len(LABELS) * 2 > idx:
-        return "v" + LABELS_JA[idx - len(LABELS)]
+        return 'v' + LABELS_JA[idx - len(LABELS)]
     else:
-        return " ・"
+        return ' ・'
+
+def label_id(idx):
+    if len(LABELS) > idx:
+        return " " + LABELS_JA[idx]
+    elif len(LABELS) * 2 > idx:
+        return 'v' + LABELS_JA[idx - len(LABELS)]
+    else:
+        return ' ・'
+
 
 def boardfile_to_content(f):
     ret = np.empty((9, 9))
     for row, line in enumerate(f):
         for i in range(9):
-            koma = line[3 * i + 1]
-            if koma in LABELS_JA:
-                idx = LABELS_JA.index(koma)
-            else:
-                idx = len(LABELS_JA) * 2
-            if line[3 * i] == 'v':
-                idx += len(LABELS_JA)
-            ret[row, i] = idx
+            strs = line.split()
+            for koma in strs:
+                koma = koma.decode('UTF-8')
+                if koma in LABELS_JA:
+                    idx = LABELS_JA.index(koma)
+                else:
+                    idx = len(LABELS_JA) * 2
+                ret[row, i] = idx
     return ret
