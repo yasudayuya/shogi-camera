@@ -2,3 +2,7 @@
 .DS_Store
 __pycache__/
 images/
+*.pyc
+build/
+core
+config/jupyter_notebook_config.json
