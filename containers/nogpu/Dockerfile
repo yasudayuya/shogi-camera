@@ -17,8 +17,9 @@ RUN cd opencv && \
     rm -rf opencv
 
 RUN apt-get install -y python-pip python3-pip libhdf5-dev graphviz
-RUN pip3 install scipy scikit-learn pandas matplotlib jupyter tensorflow Pillow h5py keras
-RUN pip3 install click scikit-image
+# RUN pip3 install scipy scikit-learn pandas matplotlib jupyter tensorflow Pillow h5py keras
+# RUN pip3 install click scikit-image
+RUN pip3 install -r requirements.txt
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
