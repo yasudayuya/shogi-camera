@@ -17,8 +17,8 @@ def main():
 
 @main.command(help='Predict shogi board contents')
 @click.argument('img_path', type=click.Path(exists=True))
-@click.option('--model', '-n', default='purple')
-@click.option('--model-path', '-m', default='models/purple2.h5')
+@click.option('--model', '-n', default='blue2')
+@click.option('--model-path', '-m', default='models/blue2.h5')
 def predict(img_path, model, model_path):
     raw_img = shogicam.util.load_img(img_path)
     corners, score = shogicam.preprocess.detect_corners(raw_img)
@@ -39,8 +39,8 @@ def predict(img_path, model, model_path):
 
 @main.command(help='Fit model')
 @click.option('--data-dir', '-d', type=click.Path(exists=True), default='data')
-@click.option('--outmodel-path', '-o', type=click.Path(), default='models/purple2.h5')
-@click.option('--model', '-m', default='purple2')
+@click.option('--outmodel-path', '-o', type=click.Path(), default='models/blue2.h5')
+@click.option('--model', '-m', default='blue2')
 def learn(data_dir, outmodel_path, model):
     model = shogicam.learn.learn_model(model, data_dir, verbose=True)
     shogicam.learn.save_model(model, outmodel_path)

@@ -11,3 +11,4 @@ keras
 click
 scikit-image
 pathlib
+bottle

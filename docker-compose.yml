@@ -1,0 +1,12 @@
+version: '2'
+services:
+  app:
+    build: ./containers/nogpu
+    container_name: shogi_app
+    tty: true
+    volumes:
+    - ./:/app
+    ports:
+    - 8000:80
+    environment:
+    - TERM:xterm
